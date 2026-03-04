@@ -1,7 +1,6 @@
 import os
 from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
-from elevenlabs.client import ElevenLabs
 from tools import blog_scraper
 from langchain.agents import create_agent
 from gtts import gTTS
@@ -19,7 +18,6 @@ def get_secret(key):
 
 class PodcastAgent:
     def __init__(self):
-        # self.audio_client = ElevenLabs(api_key=get_secret("ELEVENLABS_API_KEY"))
         self.model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0,google_api_key=get_secret("GOOGLE_API_KEY"))
         self.agent = create_agent(
                         name='Blog Summarizer',
@@ -49,22 +47,10 @@ class PodcastAgent:
 
 
     def audio_converter(self,text):
-        # audio = self.audio_client.text_to_speech.convert(
-        # text=text,
-        # voice_id="JBFqnCBsd6RMkjVDRZzb",
-        # model_id="eleven_multilingual_v2",
-        # output_format="mp3_44100_128",
-        # )
-        
-        # chunks = []
-        # for chunk in audio:
-        #     if chunk:
-        #         chunks.append(chunk)
-    
-        # return b"".join(chunks)
         tts = gTTS(text=text, lang='en')
         buf = io.BytesIO()
         tts.write_to_fp(buf)
+        buf.seek(0)
         return buf.getvalue()
     
 
