@@ -60,14 +60,7 @@ class PodcastAgent:
         return audio_summary
 
 
-agent = PodcastAgent()
 
-audio = agent.blog_to_podcast("https://designformankind.com/2024/08/the-social-media-free-creative/")
-
-with open("output.mp3", "wb") as f:
-    f.write(audio)
-
-print("Done! Check output.mp3")
 
 
 
