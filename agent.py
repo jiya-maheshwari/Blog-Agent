@@ -19,8 +19,8 @@ def get_secret(key):
 
 class PodcastAgent:
     def __init__(self):
-        self.audio_client = ElevenLabs(api_key=get_secret("ELEVENLABS_API_KEY"))
-        self.model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
+        # self.audio_client = ElevenLabs(api_key=get_secret("ELEVENLABS_API_KEY"))
+        self.model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0,google_api_key=get_secret("GOOGLE_API_KEY"))
         self.agent = create_agent(
                         name='Blog Summarizer',
                         model = self.model,
