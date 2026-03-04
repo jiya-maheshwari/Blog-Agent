@@ -7,9 +7,17 @@ from langchain.agents import create_agent
 
 load_dotenv()
 
+def get_secret(key):
+    try:
+        import streamlit as st
+        return st.secrets[key]
+    except:
+        return os.getenv(key)
+
+
 class PodcastAgent:
     def __init__(self):
-        self.audio_client = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
+        self.audio_client = ElevenLabs(api_key=get_secret("ELEVENLABS_API_KEY"))
         self.model = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
         self.agent = create_agent(
                         name='Blog Summarizer',
